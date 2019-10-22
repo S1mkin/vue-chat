@@ -7,7 +7,12 @@
     </ul>
     
     <input type="text" placeholder="Enter new message" v-model="input_msg" />
-    <button @click="add_msg">Add message</button>
+    <button @click="add_msg_to_chat">Add message</button>
+
+    <hr>
+
+    <h2>{{expMsg}}</h2>
+
 
   </div>
 </template>
@@ -16,9 +21,9 @@
 
 <script>
 
-import {mapGetters} from 'vuex'
-// import {mapActions} from 'vuex'
-// import {mapMutations} from 'vuex'
+import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
+
+
 
 export default {
   name: 'chat',
@@ -32,16 +37,24 @@ export default {
   },
   computed: {
     ...mapGetters(['get_msg']),
+    ...mapState(['expMsg']),
   },
   methods: {
     // ...mapActions(['add_new_msg']),
-    // ...mapMutations(['add_msg']),
-    add_msg(){
+    ...mapMutations(['add_msg']),
+    ...mapActions(['add_new_msg']),
+    add_msg_to_chat(){
       // вызов store.mutations - add_msg
-      //this.$store.commit('add_msg');
+      //this.$store.commit('add_msg', {msg: 'Hello world'});
 
       // вызов store.actions - add_new_msg
-      this.$store.dispatch('add_new_msg', { msg: this.input_msg});
+
+      //this.add_msg({ msg: 'Hello world'})
+
+      this.add_new_msg({ msg: this.input_msg})
+      this.input_msg = ''
+    
+      //this.$store.dispatch('add_new_msg', { msg: this.input_msg});
     }
   }
 }
