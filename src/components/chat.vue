@@ -23,8 +23,6 @@
 
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
 
-
-
 export default {
   name: 'chat',
   props: {
@@ -37,7 +35,10 @@ export default {
   },
   computed: {
     ...mapGetters(['get_msg']),
-    ...mapState(['expMsg']),
+    ...mapState({ expMsg: state => state.Chat.expMsg }),
+    get_expMsg(){
+      return this.$store.state.Chat.expMsg
+    }
   },
   methods: {
     // ...mapActions(['add_new_msg']),
